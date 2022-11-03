@@ -1,0 +1,126 @@
+//Implementar um programa que utilize uma lista simplesmente encadeada que faça:
+//a. Manipule dados de pessoas. Para isso, utilize um registro que tenha os seguintes dados: nome, data
+//de nascimento, cpf, rg, endereço, telefone e e-mail;
+//b. Insira os dados na lista (utilize uma função que já carrega dados pré-cadastrados);
+//c. Permita consultas por: cpf ou telefone e exiba os resultados na tela; 
+//d. Permita excluir os dados das pessoas através de consultas por cpf ou telefone. 
+
+#include<stdio.h>
+#include<stdlib.h>
+#include <string.h>
+int i, op;
+char x[3];
+struct Pessoas {
+	char nome[50];
+	char data[50];
+	int cpf, rg, telefone;
+	char endereco[100];
+	char email[70];
+} pessoa[10];
+// função para ADICIONAR uma pessoa
+void Add(){
+	
+	system("cls");
+	printf("\nPROGRAMA Principal");
+	printf("\nADICIONAR");
+	if(i < 10){
+		printf("\nPESSOA %d\n", i+1);
+		printf("Nome: ");
+		scanf("%s", &pessoa[i].nome);
+		printf("Data Nascimento: ");
+		scanf("%s", &pessoa[i].data);
+		printf("CPF: ");
+		scanf("%d", &pessoa[i].cpf);
+		printf("RG: ");
+		scanf("%d", &pessoa[i].rg);
+		printf("Telefone: ");
+		scanf("%d", &pessoa[i].telefone);
+		printf("Endereco: ");
+		scanf("%s", &pessoa[i].endereco);
+		printf("Email: ");
+		scanf("%s", &pessoa[i].email);
+		i++;
+	}
+	else{
+		printf("\nTA LOTADO");
+	}
+}
+
+// funçao para PESQUISAR uma pessoa
+void Pesquisar(){
+	int j, CPF;
+	
+	system("cls");
+	printf("\nPROGRAMA Principal");
+	printf("\nBuscar\n");
+	printf("\nCPF para buscar: ");
+	scanf("%d", &CPF);
+	for(j=0;j <= i-1;j++)
+	{
+		if(pessoa[j].cpf == CPF){
+			printf("\nNome: %s", pessoa[j].nome);
+			printf("\nData Nascimento: %s", pessoa[j].data);
+			printf("\nRG: %d", pessoa[j].rg);
+			printf("\nTelefone: %d", pessoa[j].telefone);
+			printf("\nEndereco: %s", pessoa[j].endereco);
+			printf("\nEmail: %s",pessoa[j].email);
+			printf("\n");
+		}
+		
+	}
+	printf("\nDigite uma tecla para voltar ao menu -> ");
+	scanf("%s", &x);
+}
+
+//funçao para REMOVER um registro
+void Excluir(){
+	int j, remover_CPF; 
+	
+	system("cls");
+	printf("\nPROGRAMA Principal");
+	printf("\nEXCLUIR");
+	printf("\nQual pessoa deseja remover [cpf]? ");
+	scanf("%d", &remover_CPF);
+	for(j=0;j<=i-1;j++){
+		if(pessoa[j].cpf == remover_CPF){
+			strcpy(pessoa[j].nome, pessoa[j+1].nome);
+		    pessoa[j].cpf = pessoa[j+1].cpf;
+			strcpy(pessoa[j].data, pessoa[j+1].data);
+			strcpy(pessoa[j].email, pessoa[j+1].email);
+			strcpy(pessoa[j].endereco, pessoa[j+1].endereco);
+			pessoa[j].rg = pessoa[j+1].rg;
+			pessoa[j].telefone, pessoa[j+1].telefone;
+			i--;
+		}
+	}
+}
+
+
+
+int main(){
+
+	
+	do{
+		system("cls");
+		printf("\nPROGRAMA Principal");
+		printf("\n[1] Inserir");
+		printf("\n[2] Consultar");
+		printf("\n[3] Excluir");
+		printf("\n[0] Sair");
+		printf("\nOpcao: ");
+		scanf("%d", &op);
+		switch (op){
+			case 1:
+				Add();
+				break;
+			case 2:
+				Pesquisar();
+				break;
+			case 3:
+				Excluir();
+				break;
+		}
+	} while(op!=0);
+	
+	printf("\n OBRIGADO! VOLTE SEMPRE!");
+}
